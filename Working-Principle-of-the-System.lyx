@@ -1,0 +1,2623 @@
+<<<<<<< HEAD:Working-Principle-of-the-System.lyx
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\date{}
+\end_preamble
+\use_default_options true
+\begin_modules
+customHeadersFooters
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2.8cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+Design and simulate a SCADA system for 
+\begin_inset Newline newline
+\end_inset
+
+wine production line integrated with power supply
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Pham Thai Long
+\begin_inset Newline newline
+\end_inset
+
+Hoang Khac Anh
+\begin_inset Newline newline
+\end_inset
+
+Nguyen Tuan Vu
+\begin_inset Newline newline
+\end_inset
+
+Nguyen Trung Duong
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+University of Technology of Ho Chi Minh City
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename Logo-BK.png
+	scale 10
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+
+\shape italic
+August 2011
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This document presents the working principle of our system.
+ Taking into consideration every technical concern related to power supply
+ is far beyond our goal, as we do not have many practical experiences in
+ this sector.
+ Instead, while building the system, we intend to focus on modeling the
+ operating procedure of two modules: first, the wine production line and
+ second, the power distribution and generators blocks.
+ In the first section, we introduce four stages of the wine production line.
+ The second section describes a subsystem that supplies power for the wine
+ production line.
+\end_layout
+
+\begin_layout Left Header
+
+\shape italic
+The Best Application with 
+\begin_inset Formula $Unity^{TM}$
+\end_inset
+
+ Pro & 
+\begin_inset Formula $Vijeo\,Citect^{TM}$
+\end_inset
+
+ SCADA
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+rhead{
+\backslash
+resizebox{0.4in}{!}{
+\backslash
+includegraphics{UnityPro-Logo.jpg}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lfoot{
+\backslash
+resizebox{1in}{!}{
+\backslash
+includegraphics{Schneider-Electric-Logo.png}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Right Footer
+
+\shape italic
+Schneider Electric Contest 2011
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Wine Production Line
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Wine-production-line"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section describes the sequence that take places in our line.
+ Four main stages make up the wine production line: weigh and clean, mill
+ and ferment, press and filtrate, bottle and package.
+ We present these stages in the subsections belows.
+\end_layout
+
+\begin_layout Subsection
+Weigh and Clean stage
+\end_layout
+
+\begin_layout Standard
+When we press the Start button (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Weigh-and-Clean-(VC)"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+ and 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Weigh-and-Clean-(UP)"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+), Motor I starts and drives a conveyor belt that loads raw grapes into
+ the weighing tank.
+ Meanwhile, water is pumped into the water tank.
+ Once the grapes' weight attains the preset value, the conveyor belt stops.
+ And, if the water tank is full, piston Number 1 pushes the grapes from
+ the weighing tank to the water tank.
+ Then Motor II does its job: cleaning.
+ After a preset time, Motor II stops, and the water used to clean the grapes
+ drains off.
+ When the tank runs out of water, piston Number 2 shifts the cleaned grapes
+ to the second stage of the production line: mill and ferment (Subsection
+ 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Mill-and-Ferment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 1_Weigh and Clean (Vijeo Citect).eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Weigh and Clean stage (Vijeo Citect).
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Weigh-and-Clean-(VC)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 2_Weigh and Clean (Unity Pro).eps
+	scale 38
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Weigh and Clean Stage (Unity Pro).
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Weigh-and-Clean-(UP)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 3_Mill and Ferment (Vijeo Citect).eps
+	scale 30
+
+\end_inset
+
+
+\shape italic
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Mill and Ferment Stage (Vijeo Citect).
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mill-and-Ferment"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mill and Ferment stage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Mill-and-Ferment"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Piston Number 2 transports the cleaned grapes to the milling tank (Figure
+ 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Mill-and-Ferment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ When the milling process finishes, the milled grapes are shifted to a reservoir
+, where we add ferments alcoholic and gas 
+\begin_inset Formula $SO_{2}$
+\end_inset
+
+ to transform the grape juice into alcohol.
+ Using a control panel (that displays the pop-up windows - see Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Popup-windows"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+), we can set the temperature and the duration of the fermenting process.
+ At the end of the stage, grape juice (which has became alcohol) and the
+ insoluble residues are carried to the pressing-filtrating tank, where the
+ stage of press and filtrate starts (Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Press-and-Filtrate"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 4_Temperature and Time Control.eps
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Temperature Control (Left) and Time Control (Right) pop-up windows.
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Popup-windows"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 5_Press and Filtrate (Vijeo Citect).eps
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Press and Filtrate Stage (Vijeo Citect).
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Press-and-Filtrate"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Press and Filtrate stage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Press-and-Filtrate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+First, the pressing-filtrating tank (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Press-and-Filtrate"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+) squeezes the mixture of alcohol and insoluble residues to separate them.
+ Next, the liquid part (the wine) is filtered and pumped to the wine reservoir,
+ while the solid part (the marc) is removed from the tank.
+ Now, we arrive at the final stage of the wine production line: bottle and
+ package (Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bottle-and-Package"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+\end_layout
+
+\begin_layout Subsection
+Bottle and Package stage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bottle-and-Package"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this stage, the reservoir pours wine into each bottle (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bottle-and-Package"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ Then, eight bottles of wine are packed every time.
+ In each production batch, the system manufactures three packages of wine
+ bottle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 6_Bottle and Package (Vijeo Citect).eps
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Bottle and Package Stage (Vijeo Citect).
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bottle-and-Package"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Next, we come to the integrated power supply system.
+ Section 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Power-Supply-System"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\color black
+presents the components making up this system.
+\end_layout
+
+\begin_layout Section
+Power Supply System
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Power-Supply-System"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In our model, the power supply system combines two specific blocks.
+ The first block includes two transformers and multiple circuit breakers
+ (see Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Transformers-and-circuit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ The second block comprises two generators and the subsidiary devices to
+ supply cooling water and fuel for these generators (see Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Generators-and-fuel"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ 
+\end_layout
+
+\begin_layout Subsection
+Transformers and circuit breakers
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Transformers-and-circuit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To power the factory, we load the electricity from the 15 kV grid to two
+ transformers, Transformer I and Transformer II, through two main circuit
+ breakers (CB) called SWBT1 and SWBT2.
+ The Transformer I has three outputs: T/O_1, T/O_2, T/O_3.
+ The Transformer II has one output: T/O_4 (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Two-transformers"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The outputs of the transformers connect to seven CBs (1st-grade CBs).
+ We divide these seven CBs into three groups: A (CTA1, CTA2), B (CTB1, CTB2,
+ CTB3), and C (CTC1, CTC2).
+ As we can see in Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:1st-grade-and-2nd-grade-CBs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+, these CBs connect to either the transformers' outputs T/O_1, T/O_2, T/O_4
+ or the generators' outputs G/O_1, G/O_2.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 7_Transformers.eps
+	scale 53
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Two transformers are wired to the electrical grid
+\shape default
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Two-transformers"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Underneath the first-grade CBs is the second-grade ones which include three
+ groups: (SW1_1, SW1_2, and SW1_3), (SW2_1, SW2_2, and SW2_3), and (SW3_1,
+ SW3_2, and SW3_3).
+ The CBs in the first two groups connect respectively to the first-grade
+ CBs of group A and group B above.
+ And, the CBs SW3_1, SW3_2, and SW3_3 wire, respectively, to a transformer's
+ output (T/O_3 of Transformer I), the first-grade CBs (CTC1, CTC2), and
+ a generator's output (G/O_3 of Generator II).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 8_First and Second Circuit Breakers.eps
+	scale 42
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+1st-grade and 2nd-grade CBs distribute power from the transformers' outputs.
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:1st-grade-and-2nd-grade-CBs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Among these second-grade CBs, the group (SW 3_1, SW 3_2, SW3_3) connect
+ subsequently to the panel of third-grade CBs that transmit power straight
+ to different stages of the wine production line presented in Section 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Wine-production-line"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+.
+ The CBs from SW1_1 to SW2_2 conduct electricity to other factory's workshops,
+ while SW2_3 is used as redundancy output.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The third-grade CBs (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Third-grade-CBs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+) comprise CB F1, F2, F3, F4, and F5.
+ As we just stated, the role of the CBs from F1 to F4 is to turn on/off
+ power for the wine production process.
+ The CB F5 is the power switch of the office building.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 9_Third-grade Circuit Breakers.eps
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Third-grade CBs power the wine production phases.
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Third-grade-CBs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+In the next subsection, we describe the functioning of the block of generators
+ and fuel & cooling water supply.
+ For a power supply system operating in industrial plant, this block is
+ indispensable.
+\end_layout
+
+\begin_layout Subsection
+Generators and fuel & cooling water supply system
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Generators-and-fuel"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Whenever an over-voltage (the voltage on the grid exceeds 16 kV) or an under-vol
+tage (the voltage on the grid drops under 14kV) incident happens in the
+ grid, the two transformers disconnect automatically, and the two generators
+ (Generator I and Generator II in Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Generators-and-fuel"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+) operate immediately.
+ In this way, we can ensure the power supply for the entire factory.
+ The unique output of Generator I (G/O_1) is wired to the input of the first-gra
+de circuit breakers: CTA1, CTB2, and CTC2.
+ Generator II has two outputs, denoted as G/O_2 and G/O_3, that connect
+ to CTB3 and SW3_3, respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The generator, while running, creates too much heat.
+ Thus, a cooling process is imperative.
+ Five seconds after the generators operate, a closed cycle of heat dissipation
+ takes place.
+ Specifically, a pump continuously pushes the water in a tank flowing through
+ the generator engine, where it absorbs the heat and becomes hot water.
+ Then, hot water is conducted to the fan that blows the heat to cool down
+ it before returning to the tank.
+ And from here, cool water is again pumped to cool down the generator engine.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+When the problem on the grid is fixed (the voltage goes back within the
+ range 14 to 16 kV), the two transformers are reconnected to the grid automatica
+lly.
+ Meanwhile, the two generators continue to work for five more seconds before
+ completely stopping.
+ This stage, called synchronization, is to guarantee a stable power supply
+ for the factory.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+During the cooling process for the generator, the water gradually runs out.
+ If the water volume in the water tank falls under 50 l, the water valve
+ switches on automatically to let cool water from an external reservoir
+ go into the tank.
+ When the water volume in the tank is beyond 900 l, the valve automatically
+ switches off.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Images/Figure 10_Generators.eps
+	scale 47
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Generators and fuel & cooling water supply system.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Generators-and-fuel"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The generator consumes oil reserved in his built-in tank.
+ While the generator is running, the fuel level inside the tank decreases.
+ Once the oil volume in the tank is less than 20 l, the valve of an external
+ oil reservoir opens automatically to provide additional fuel for the generator'
+s built-in tank.
+ When the oil volume in the tank exceeds 450 l, the oil valve automatically
+ closes.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+In addition, besides the automatic mode, our system also allows the technician
+ to turn on/off manually the generators, the water valves, and the oil valves.
+\end_layout
+
+\end_body
+\end_document
+=======
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\date{}
+\end_preamble
+\use_default_options true
+\begin_modules
+customHeadersFooters
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2.8cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+Design and simulate a SCADA system for 
+\begin_inset Newline newline
+\end_inset
+
+wine production line integrated with power supply
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Pham Thai Long
+\begin_inset Newline newline
+\end_inset
+
+Hoang Khac Anh
+\begin_inset Newline newline
+\end_inset
+
+Nguyen Tuan Vu
+\begin_inset Newline newline
+\end_inset
+
+Nguyen Trung Duong
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+University of Technology of Ho Chi Minh City
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename Logo-BK.png
+	scale 10
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+
+\shape italic
+August 2011
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This document presents the working principle of our system.
+ Taking into consideration every technical concern related to power supply
+ is far beyond our goal, as we do not have many practical experiences in
+ this sector.
+ Instead, while building the system, we intend to focus on modeling the
+ operating procedure of two modules: first, the wine production line and
+ second, the power distribution and generators blocks.
+ In the first section, we introduce four stages of the wine production line.
+ The second section describes a subsystem that supplies power for the wine
+ production line.
+\end_layout
+
+\begin_layout Left Header
+
+\shape italic
+The Best Application with 
+\begin_inset Formula $Unity^{TM}$
+\end_inset
+
+ Pro & 
+\begin_inset Formula $Vijeo\,Citect^{TM}$
+\end_inset
+
+ SCADA
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+rhead{
+\backslash
+resizebox{0.4in}{!}{
+\backslash
+includegraphics{UnityPro-Logo.jpg}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lfoot{
+\backslash
+resizebox{1in}{!}{
+\backslash
+includegraphics{Schneider-Electric-Logo.png}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Right Footer
+
+\shape italic
+Schneider Electric Contest 2011
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Wine Production Line
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Wine-production-line"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section describes the sequence that take places in our line.
+ Four main stages make up the wine production line: weigh and clean, mill
+ and ferment, press and filtrate, bottle and package.
+ We present these stages in the subsections belows.
+\end_layout
+
+\begin_layout Subsection
+Weigh and Clean stage
+\end_layout
+
+\begin_layout Standard
+When we press the Start button (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Weigh-and-Clean-(VC)"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+ and 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Weigh-and-Clean-(UP)"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+), Motor I starts and drives a conveyor belt that loads raw grapes into
+ the weighing tank.
+ Meanwhile, water is pumped into the water tank.
+ Once the grapes' weight attains the preset value, the conveyor belt stops.
+ And, if the water tank is full, piston Number 1 pushes the grapes from
+ the weighing tank to the water tank.
+ Then Motor II does its job: cleaning.
+ After a preset time, Motor II stops, and the water used to clean the grapes
+ drains off.
+ When the tank runs out of water, piston Number 2 shifts the cleaned grapes
+ to the second stage of the production line: mill and ferment (Subsection
+ 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Mill-and-Ferment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 1_Weigh and Clean (Vijeo Citect).eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Weigh and Clean stage (Vijeo Citect).
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Weigh-and-Clean-(VC)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 2_Weigh and Clean (Unity Pro).eps
+	scale 38
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Weigh and Clean Stage (Unity Pro).
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Weigh-and-Clean-(UP)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 3_Mill and Ferment (Vijeo Citect).eps
+	scale 30
+
+\end_inset
+
+
+\shape italic
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Mill and Ferment Stage (Vijeo Citect).
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mill-and-Ferment"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mill and Ferment stage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Mill-and-Ferment"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Piston Number 2 transports the cleaned grapes to the milling tank (Figure
+ 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Mill-and-Ferment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ When the milling process finishes, the milled grapes are shifted to a reservoir
+, where we add ferments alcoholic and gas 
+\begin_inset Formula $SO_{2}$
+\end_inset
+
+ to transform the grape juice into alcohol.
+ Using a control panel (that displays the pop-up windows - see Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Popup-windows"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+), we can set the temperature and the duration of the fermenting process.
+ At the end of the stage, grape juice (which has became alcohol) and the
+ insoluble residues are carried to the pressing-filtrating tank, where the
+ stage of press and filtrate starts (Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Press-and-Filtrate"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 4_Temperature and Time Control.eps
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Temperature Control (Left) and Time Control (Right) pop-up windows.
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Popup-windows"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 5_Press and Filtrate (Vijeo Citect).eps
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Press and Filtrate Stage (Vijeo Citect).
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Press-and-Filtrate"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Press and Filtrate stage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Press-and-Filtrate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+First, the pressing-filtrating tank (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Press-and-Filtrate"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+) squeezes the mixture of alcohol and insoluble residues to separate them.
+ Next, the liquid part (the wine) is filtered and pumped to the wine reservoir,
+ while the solid part (the marc) is removed from the tank.
+ Now, we arrive at the final stage of the wine production line: bottle and
+ package (Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bottle-and-Package"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+\end_layout
+
+\begin_layout Subsection
+Bottle and Package stage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bottle-and-Package"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this stage, the reservoir pours wine into each bottle (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bottle-and-Package"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ Then, eight bottles of wine are packed every time.
+ In each production batch, the system manufactures three packages of wine
+ bottle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 6_Bottle and Package (Vijeo Citect).eps
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Bottle and Package Stage (Vijeo Citect).
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bottle-and-Package"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Next, we come to the integrated power supply system.
+ Section 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Power-Supply-System"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\color black
+presents the components making up this system.
+\end_layout
+
+\begin_layout Section
+Power Supply System
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Power-Supply-System"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In our model, the power supply system combines two specific blocks.
+ The first block includes two transformers and multiple circuit breakers
+ (see Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Transformers-and-circuit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ The second block comprises two generators and the subsidiary devices to
+ supply cooling water and fuel for these generators (see Subsection 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Generators-and-fuel"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ 
+\end_layout
+
+\begin_layout Subsection
+Transformers and circuit breakers
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Transformers-and-circuit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To power the factory, we load the electricity from the 15 kV grid to two
+ transformers, Transformer I and Transformer II, through two main circuit
+ breakers (CB) called SWBT1 and SWBT2.
+ The Transformer I has three outputs: T/O_1, T/O_2, T/O_3.
+ The Transformer II has one output: T/O_4 (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Two-transformers"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The outputs of the transformers connect to seven CBs (1st-grade CBs).
+ We divide these seven CBs into three groups: A (CTA1, CTA2), B (CTB1, CTB2,
+ CTB3), and C (CTC1, CTC2).
+ As we can see in Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:1st-grade-and-2nd-grade-CBs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+, these CBs connect to either the transformers' outputs T/O_1, T/O_2, T/O_4
+ or the generators' outputs G/O_1, G/O_2.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 7_Transformers.eps
+	scale 53
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Two transformers are wired to the electrical grid
+\shape default
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Two-transformers"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Underneath the first-grade CBs is the second-grade ones which include three
+ groups: (SW1_1, SW1_2, and SW1_3), (SW2_1, SW2_2, and SW2_3), and (SW3_1,
+ SW3_2, and SW3_3).
+ The CBs in the first two groups connect respectively to the first-grade
+ CBs of group A and group B above.
+ And, the CBs SW3_1, SW3_2, and SW3_3 wire, respectively, to a transformer's
+ output (T/O_3 of Transformer I), the first-grade CBs (CTC1, CTC2), and
+ a generator's output (G/O_3 of Generator II).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 8_First and Second Circuit Breakers.eps
+	scale 42
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+1st-grade and 2nd-grade CBs distribute power from the transformers' outputs.
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:1st-grade-and-2nd-grade-CBs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Among these second-grade CBs, the group (SW 3_1, SW 3_2, SW3_3) connect
+ subsequently to the panel of third-grade CBs that transmit power straight
+ to different stages of the wine production line presented in Section 
+\color red
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Wine-production-line"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+.
+ The CBs from SW1_1 to SW2_2 conduct electricity to other factory's workshops,
+ while SW2_3 is used as redundancy output.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The third-grade CBs (Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Third-grade-CBs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+) comprise CB F1, F2, F3, F4, and F5.
+ As we just stated, the role of the CBs from F1 to F4 is to turn on/off
+ power for the wine production process.
+ The CB F5 is the power switch of the office building.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Figure 9_Third-grade Circuit Breakers.eps
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Third-grade CBs power the wine production phases.
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Third-grade-CBs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+In the next subsection, we describe the functioning of the block of generators
+ and fuel & cooling water supply.
+ For a power supply system operating in industrial plant, this block is
+ indispensable.
+\end_layout
+
+\begin_layout Subsection
+Generators and fuel & cooling water supply system
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Generators-and-fuel"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Whenever an over-voltage (the voltage on the grid exceeds 16 kV) or an under-vol
+tage (the voltage on the grid drops under 14kV) incident happens in the
+ grid, the two transformers disconnect automatically, and the two generators
+ (Generator I and Generator II in Figure 
+\color blue
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Generators-and-fuel"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\color inherit
+) operate immediately.
+ In this way, we can ensure the power supply for the entire factory.
+ The unique output of Generator I (G/O_1) is wired to the input of the first-gra
+de circuit breakers: CTA1, CTB2, and CTC2.
+ Generator II has two outputs, denoted as G/O_2 and G/O_3, that connect
+ to CTB3 and SW3_3, respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The generator, while running, creates too much heat.
+ Thus, a cooling process is imperative.
+ Five seconds after the generators operate, a closed cycle of heat dissipation
+ takes place.
+ Specifically, a pump continuously pushes the water in a tank flowing through
+ the generator engine, where it absorbs the heat and becomes hot water.
+ Then, hot water is conducted to the fan that blows the heat to cool down
+ it before returning to the tank.
+ And from here, cool water is again pumped to cool down the generator engine.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+When the problem on the grid is fixed (the voltage goes back within the
+ range 14 to 16 kV), the two transformers are reconnected to the grid automatica
+lly.
+ Meanwhile, the two generators continue to work for five more seconds before
+ completely stopping.
+ This stage, called synchronization, is to guarantee a stable power supply
+ for the factory.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+During the cooling process for the generator, the water gradually runs out.
+ If the water volume in the water tank falls under 50 l, the water valve
+ switches on automatically to let cool water from an external reservoir
+ go into the tank.
+ When the water volume in the tank is beyond 900 l, the valve automatically
+ switches off.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Images/Figure 10_Generators.eps
+	scale 47
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\shape italic
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Generators and fuel & cooling water supply system.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Generators-and-fuel"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The generator consumes oil reserved in his built-in tank.
+ While the generator is running, the fuel level inside the tank decreases.
+ Once the oil volume in the tank is less than 20 l, the valve of an external
+ oil reservoir opens automatically to provide additional fuel for the generator'
+s built-in tank.
+ When the oil volume in the tank exceeds 450 l, the oil valve automatically
+ closes.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\,$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+In addition, besides the automatic mode, our system also allows the technician
+ to turn on/off manually the generators, the water valves, and the oil valves.
+\end_layout
+
+\end_body
+\end_document
+>>>>>>> b6f56d7c0eadaeac88d82e648a07629f55acc230:Working Principle of the System.lyx
