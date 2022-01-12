@@ -13,7 +13,7 @@ The Supervisory Control And Data Acquisition (SCADA) system provides the operato
 
 Our project, **Design and simulate a SCADA system for wine production line integrated with power supply**, is realized within the technical contest "_The best application with UnityPro & Vijeo Citect SCADA_" launched by [**Schneider Electric Vietnam**](https://www.se.com/vn/en/) in June 2011.
 
-Specifically, we design and simulate a SCADA system composed by two modules (subsystems): a wine production line, and a power supply. To understand how the system works, please read the [working principle](/Working%20Principle%20of%20the%20System.pdf).
+Specifically, we design and simulate a SCADA system composed by two modules (subsystems): a wine production line, and a power supply. To understand how the system works, please read the [working principle](/Working-Principle-of-the-System.pdf).
 
 <br>
 
