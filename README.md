@@ -1,4 +1,4 @@
-<img align="left" width=350 height=150 src="https://github.com/TrungDuong-Nguyen/SchneiderElectric_SCADAContest/blob/main/Schneider-Electric-Logo.png"> <img align="right" width=150 height=150 src="https://github.com/TrungDuong-Nguyen/SchneiderElectric_SCADAContest/blob/main/UnityPro-Logo.jpg">
+<img align="left" width=350 height=150 src="https://github.com/TrungDuong-Nguyen/Schneider-Electric-SCADA-contest/blob/main/Schneider-Electric-Logo.png"> <img align="right" width=150 height=150 src="https://github.com/TrungDuong-Nguyen/Schneider-Electric-SCADA-contest/blob/main/UnityPro-Logo.jpg">
 
 <br>
 <br>
